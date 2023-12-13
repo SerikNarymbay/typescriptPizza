@@ -5,9 +5,10 @@ import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 
 interface SinglePizzaProps {
   pizza: Pizza;
+  updatePizza: (newPizza: Pizza) => void;
 }
 
-const SinglePizza: FC<SinglePizzaProps> = ({ pizza }) => {
+const SinglePizza: FC<SinglePizzaProps> = ({ pizza, updatePizza }) => {
   const [edit, setEdit] = useState<boolean>(false);
   const handleToggleEdit = () => {
     setEdit(!edit);
@@ -22,7 +23,13 @@ const SinglePizza: FC<SinglePizzaProps> = ({ pizza }) => {
         <AiFillDelete />
       </div>
 
-      {edit ? <EditPizzaForm data={pizza} /> : null}
+      {edit ? (
+        <EditPizzaForm
+          data={pizza}
+          handleToggleEdit={handleToggleEdit}
+          updatePizza={updatePizza}
+        />
+      ) : null}
     </div>
   );
 };

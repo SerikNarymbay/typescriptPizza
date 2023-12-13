@@ -6,8 +6,15 @@ import Pizza from "./models/Pizza";
 
 const App: FC = () => {
   const [pizzasList, setPizzasList] = useState<Pizza[]>([]);
+
   const addPizza = (newPizza: Pizza) => {
     setPizzasList([...pizzasList, newPizza]);
+  };
+
+  const updatePizza = (newPizza: Pizza) => {
+    setPizzasList(
+      pizzasList.map((pizza) => (pizza.id === newPizza.id ? newPizza : pizza))
+    );
   };
 
   console.log("pizzasList>>>>", pizzasList);
@@ -17,7 +24,7 @@ const App: FC = () => {
       <div className="wrap">
         <span className="heading">Наша пицерия</span>
         <AddPizzaForm addPizza={addPizza} />
-        <DisplayPizzas pizzasList={pizzasList} />
+        <DisplayPizzas pizzasList={pizzasList} updatePizza={updatePizza} />
       </div>
     </div>
   );
